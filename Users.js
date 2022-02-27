@@ -9,8 +9,7 @@ class Users extends Component {
     };
        
     componentDidMount() {
-      ////var idd = 1;//this.props.match.params.id;
-      //console.log(idd);   
+      ////var idd = 1;//this.props.match.params.id;   
       fetch('https://jsonplaceholder.typicode.com/users/8')     
           .then(res => res.json())
           .then(res => {
