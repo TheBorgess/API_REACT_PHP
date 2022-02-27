@@ -22,6 +22,7 @@ class Tasks extends Component {
       var price;
       price = parseFloat(this.state.tasks.key);
       //console.log(price);
+      //Format the price in Brazilian currency
       price =  Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(price);          
       //price = price.toLocaleString(undefined, {maximumFractionDigits:2})
       ///////price = price.slice(4,100);
