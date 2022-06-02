@@ -7,10 +7,26 @@ export const Home = () => {
 
    const [data, setData] = useState([]);
 
+   const [order, setOrder] = useState('DESC');
+
    const[status, setStatus] = useState({
        type: '',
        mensagem: ''
    });
+
+   const sorting = () => {
+   
+     if (order === 'DESC'){
+           //console.log('DESC ==' + order);
+           getClientes2();
+           setOrder('ASC');
+     }else{
+           //console.log('ASC ==' + order);
+           getClientes();
+           setOrder('DESC'); 
+     }
+
+   }
 
    const filterLength = (texto) => {
       if (texto.length > 36) {
@@ -22,7 +38,8 @@ export const Home = () => {
            return texto; 
       } 
    }
-
+   
+   //NOME EM ORDER CRESCENTE = ASC
    const getClientes = async () => {
           fetch("http://localhost/index.php") 
           .then((response) => response.json())
@@ -31,6 +48,18 @@ export const Home = () => {
                setData(responseJson.records)
           ));
    } 
+
+   //NOME EM ORDERM DECRESCENTE = DESC
+   const getClientes2 = async () => {
+          fetch("http://localhost/index2.php") 
+          .then((response) => response.json())
+          .then((responseJson) => (
+               //console.log(responseJson)
+               setData(responseJson.records)
+          ));
+   } 
+
+   //console.log(data);   
 
    const apagarCliente = async (idCliente) => {
       //alert(idCliente);
@@ -88,7 +117,7 @@ export const Home = () => {
            <thead>
             <tr>
               <th>ID</th>
-              <th>Nome</th>
+              <th onClick={() => sorting()}>Nome</th>
               <th>Endereço</th>
               <th>Ações</th>
             </tr>
@@ -98,7 +127,7 @@ export const Home = () => {
                 <tr key={cliente.id}>
                   <td>{cliente.id}</td>
                   <td>{filterLength(cliente.nome)}</td>
-                  <td>{filterLength(cliente.end)}</td> 
+                  <td>{filterLength(cliente.end)}</td>
                   <td>
                   <Link to={"/visualizar/" + cliente.id}><ButtonPrimary>Visualizar</ButtonPrimary></Link>
                   {" "}

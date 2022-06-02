@@ -8,7 +8,7 @@ header("Content-Type: application/json charset=UTF-8");
 require_once 'conexao.php';
 
 //////////////////Exemplo PDO do CELKE////////////////////////////
-$stmt = $conn->prepare("select * from clientes order by nome");
+$stmt = $conn->prepare("select * from clientes order by nome DESC");
 $stmt->execute();
 $results = $stmt->fetchall(PDO::FETCH_ASSOC);
 
