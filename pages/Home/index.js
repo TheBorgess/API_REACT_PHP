@@ -4,28 +4,23 @@ import { Link } from 'react-router-dom';
 import {Table, Titulo, Container, ConteudoTitulo, BotaoAcao, ButtonInfo, ButtonPrimary, ButtonWarning, ButtonDanger, AlertSuccess } from './styles';
 
 export const Home = () => {
-
    const [data, setData] = useState([]);
-
    const [order, setOrder] = useState('DESC');
-
-   const[status, setStatus] = useState({
+   const [status, setStatus] = useState({
        type: '',
        mensagem: ''
    });
 
-   const sorting = () => {
-   
+   const sorting = () => { 
      if (order === 'DESC'){
            //console.log('DESC ==' + order);
            getClientes2();
            setOrder('ASC');
-     }else{
+     } else{
            //console.log('ASC ==' + order);
            getClientes();
            setOrder('DESC'); 
      }
-
    }
 
    const filterLength = (texto) => {
@@ -54,22 +49,18 @@ export const Home = () => {
           fetch("http://localhost/index2.php") 
           .then((response) => response.json())
           .then((responseJson) => (
-               //console.log(responseJson)
                setData(responseJson.records)
           ));
    } 
 
    //console.log(data);   
-
    const apagarCliente = async (idCliente) => {
       //alert(idCliente);
-      //console.log(idCliente);
      if (window.confirm('Are you sure to delete this record?')) {
-
         await fetch("http://localhost/apagar.php?id=" + idCliente)
         .then((response) => response.json())
         .then((responseJson) => {
-           //console.log(responseJson);  
+        //console.log(responseJson);  
         if(responseJson.erro){ 
             setStatus({
                type: 'erro',
@@ -89,15 +80,12 @@ export const Home = () => {
             }); 
             //console.log("Erro: Cliente nao apagado com sucesso!!!");
         });
-    
-     }//if
-   
+     }
    }
 
    useEffect(() => {
       getClientes();
    },[])
-
 
    return (
      <Container>
